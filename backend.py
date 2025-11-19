@@ -17,6 +17,7 @@ def menu():
             degbug = "JoaoGRSilva"
 
             events = fetch_user_activity(degbug)
+            print(events)
             activity = count_user_activit(events)
             print(json.dumps(activity, indent = 4))
 
