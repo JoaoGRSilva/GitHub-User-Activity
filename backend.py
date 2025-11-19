@@ -1,4 +1,5 @@
-from api_controller import fetchUserActivity
+from api_controller import fetch_user_activity, count_user_activit
+import json
 
 def menu_print():
     print("O que deseja fazer?")
@@ -11,9 +12,13 @@ def menu():
         escolha = int(input("Digite a opção: "))
 
         if escolha == 1:
-            user = input("Digite o usuário: ")
-            response = fetchUserActivity(user)
-            print(response)
+            """user = input("Digite o usuário: ")"""
+
+            degbug = "JoaoGRSilva"
+
+            events = fetch_user_activity(degbug)
+            activity = count_user_activit(events)
+            print(json.dumps(activity, indent = 4))
 
         if escolha == 2:
             print("Encerrando...")
