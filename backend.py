@@ -1,10 +1,12 @@
-from api_controller import fetch_user_activity, count_user_activit
-import json
+from api_controller import fetch_user_activity, count_user_activit, activit_treatment
+import json, os
+
+clear = lambda: os.system('cls')
 
 def menu_print():
     print("O que deseja fazer?")
     print("1 - Realizar pesquisa")
-    print("2 - Sair")
+    print("2 - Sair\n")
 
 def menu():
     while True:
@@ -13,13 +15,9 @@ def menu():
 
         if escolha == 1:
             """user = input("Digite o usuário: ")"""
-
-            degbug = "JoaoGRSilva"
-
-            events = fetch_user_activity(degbug)
-            print(events)
-            activity = count_user_activit(events)
-            print(json.dumps(activity, indent = 4))
+            events = fetch_user_activity("JoaoGRSilva")
+            counters = count_user_activit(events)
+            activit_treatment(events, counters)
 
         if escolha == 2:
             print("Encerrando...")

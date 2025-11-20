@@ -70,7 +70,7 @@ mapping = {
     "PushEvent": {
         "key": "push",
         "description": lambda event, counters: (
-            f"Pushed {counters['push']} times to {event['repo']['name']}"
+        f"Pushed {counters['push_by_repo'][event['repo']['name']]} times to {event['repo']['name']}"
         )
     },
 
@@ -105,17 +105,46 @@ def count_user_activit(events_json):
 
     counters = {mapping[event]["key"]: 0 for event in mapping}
 
+    counters["push_by_repo"] = {}
+
     for event in events_json:
         event_type = event.get("type")
+        info = mapping.get(event_type)
 
-        key = mapping.get(event_type)
+        if info is None:
+            continue
 
-        if key is not None:
-            counters[key] += 1
+        key = info["key"]
+        counters[key] += 1
+
+        if key == "push":
+            repo_name = event["repo"]["name"]
+            if repo_name not in counters["push_by_repo"]:
+                counters["push_by_repo"][repo_name] = 0
+            counters["push_by_repo"][repo_name] += 1
 
     return counters
 
-def activit_treatment(activity_list):
 
-    for event in activity_list:
-        pass
+def activit_treatment(events, counters):
+
+    for event in events:
+        event_type = event["type"]
+
+        if event_type not in mapping:
+            continue
+
+        info = mapping[event_type]
+
+        description_fn = info["description"]
+
+        if callable(description_fn):
+            desc = description_fn(event,counters)
+
+        elif isinstance(description_fn, str):
+            desc = description_fn
+
+        else:
+            desc = f"Did {info['key']} activity."
+
+        print(desc)
