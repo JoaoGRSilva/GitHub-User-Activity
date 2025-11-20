@@ -32,3 +32,35 @@ Ideal para treinar:
 - API pública do GitHub
 
 ---
+
+
+# GitHub User Activity
+
+A Python project that consumes the GitHub public API and generates a smart summary of a user's recent activity.  
+The system fetches events (Push, Create, Issues, etc.), counts how many times each action occurred, and displays clear human-friendly descriptions.
+
+Great for practicing:
+- REST API consumption
+- JSON handling
+- Python dictionaries and data structures
+- Functions, lambdas, dynamic mapping
+- Event processing
+
+---
+
+## 🚀 Features
+
+- Fetches public GitHub events from any user
+- Automatically counts different activity types
+- Generates dynamic descriptions (e.g., “Pushed 3 times to repo X”)
+- Supports multiple GitHub event types
+- Clean and modular codebase
+
+---
+
+## 📦 Technologies Used
+
+- **Python 3.10+**
+- **Requests** (GitHub API client)
+- Python data structures (dicts, lambdas)
+- GitHub Public Events API
